@@ -53,14 +53,14 @@ class _IsolateCameraScreenState extends State<IsolateCameraScreen> {
         builder: (CameraState state, Preview preview) => state.when(
           onPhotoMode: (photoCameraState) => CameraOverlayWidget(
             photoCameraState: photoCameraState,
-            onPhotoCameraState: _setCameraStatet,
+            onPhotoCameraState: _setCameraState,
           ),
         ),
       ),
     );
   }
 
-  void _setCameraStatet(PhotoCameraState state) {
+  void _setCameraState(PhotoCameraState state) {
     cameraState ??= state;
   }
 
@@ -82,10 +82,14 @@ class _IsolateCameraScreenState extends State<IsolateCameraScreen> {
   }
 
   FutureOr _onTakePhoto(CaptureRequest value) {
+    debugPrint("CAPTURE REQUEST ${value.path}");
     processTextImage
         .photoTextProcess(InputImage.fromFilePath(value.path!))
         ?.then((value) {
+      debugPrint("Text result $value");
       Navigator.pop(context, value);
+    }).catchError((err) {
+      debugPrint("Text result error $err");
     });
   }
 

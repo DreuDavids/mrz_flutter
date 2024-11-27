@@ -31,7 +31,7 @@ class ProcessTextImage {
           .expand<TextLine>((block) => block.lines)
           .toList();
 
-      int index = lines.indexWhere((line) => line.text.contains('ICCOL'));
+      int index = lines.indexWhere((line) => line.text.contains('ACBWA'));
       if (index >= 0) {
         processLines =
             lines.sublist(index, lines.length - 1).map((e) => e.text).toList();
@@ -41,6 +41,7 @@ class ProcessTextImage {
         return processMrzText(processLines);
       }
 
+      //TODO THIS IS WHERE THE REULT FALLS
       return null;
     } catch (error) {
       debugPrint("Isolate result:  has error $error");
